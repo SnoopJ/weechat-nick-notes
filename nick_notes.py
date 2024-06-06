@@ -46,10 +46,10 @@ def add_nick_notes(data: str, modifier: str, modifier_data: str, msg: str):
 
         if is_action:
             msg = re.sub("\S+" + re.escape(colored_nick), "", msg)
-            result = "*\t" + colored_nick + NICK_NOTES[nick] + msg
+            result = "*\t" + NICK_NOTES[nick] + " " + colored_nick + msg
         else:
             msg = re.sub("\S+" + re.escape(nick), "", msg)
-            result = colored_nick + NICK_NOTES[nick] + msg
+            result = NICK_NOTES[nick] + " " + colored_nick + msg
 
     else:
         # pass through unchanged
