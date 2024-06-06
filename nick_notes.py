@@ -35,8 +35,8 @@ def add_nick_notes(data: str, modifier: str, modifier_data: str, msg: str):
     plugin, buffer_name, rawtags = modifier_data.split(';', maxsplit=2)
     tags = rawtags.split(',')
 
-    is_action = any(t == "irc_action" for t in tags)
-    is_privmsg = any(t == "irc_privmsg" for t in tags)
+    is_action = "irc_action" in tags
+    is_privmsg = "irc_privmsg" in tags
     nick = next((t for t in tags if t.startswith("nick_")), "")[5:]
 
     if is_privmsg and nick in NICK_NOTES:
