@@ -41,8 +41,12 @@ def add_nick_notes(data: str, modifier: str, modifier_data: str, msg: str):
 
     if is_privmsg and nick in NICK_NOTES:
         idx = msg.index(nick)
-        # Hardcoding this color bytes offset is not great but works on my machine ¯\_(ツ)_/¯
-        colored_nick = msg[idx-4:idx] + nick
+        m = re.search(r"(\x19.*)\t", msg)
+        if not m :
+            # fallback on an uncolored nick
+            colored_nick = nick
+        else:
+            colored_nick = m.group(1)
 
         if is_action:
             msg = re.sub("\S+" + re.escape(colored_nick), "", msg)
