@@ -25,14 +25,14 @@ for entry in weechat.config_get_plugin("nick_notes").split(','):
 
 
 version = weechat.info_get("version_number", "") or 0
-if int(version) < 0x00020800:
-    msg = f"This plugin requires weechat >= 2.8, found version {version}"
+if int(version) <= 0x00020800:
+    msg = f"This plugin requires weechat > 2.8, found version {version}"
     raise RuntimeError(msg)
 
 
 def add_nick_notes(data: str, modifier: str, modifier_data: str, msg: str):
-    # NOTE: this layout changed after weechat version 2.8
-    plugin, buffer_name, rawtags = modifier_data.split(';', maxsplit=2)
+    # NOTE: this layout changed after weechat version 2.8, and between 2.8 and 3.5
+    buffer_name, rawtags = modifier_data.split(';', maxsplit=2)
     tags = rawtags.split(',')
 
     is_action = "irc_action" in tags
